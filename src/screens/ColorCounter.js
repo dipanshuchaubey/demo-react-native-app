@@ -1,55 +1,57 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import {View, StyleSheet} from 'react-native';
 import ColorItem from './components/ColorItem';
 
 const CHANGE_INCREMENT = 15;
 
+const reducer = (state, action) => {
+  switch (action.colorToChange) {
+    case 'red':
+      return {...state, red: state.red + action.amount};
+    case 'green':
+      return {...state, green: state.green + action.amount};
+    case 'blue':
+      return {...state, blue: state.blue + action.amount};
+
+    default:
+      return state;
+  }
+};
+
 const ColorCounter = () => {
-  const [red, setRed] = useState(0);
-  const [green, setGreen] = useState(0);
-  const [blue, setBlue] = useState(0);
+  // @ts-ignore
+  const [state, dispatch] = useReducer(reducer, {red: 0, green: 0, blue: 0});
 
-  const setColor = (color, change) => {
-    switch (color) {
-      case 'red':
-        if (red + change > 255 || red + change < 0) {
-          return;
-        }
-        return setRed(red + change);
-
-      case 'green':
-        if (green + change > 255 || green + change < 0) {
-          return;
-        }
-        return setGreen(green + change);
-
-      case 'blue':
-        if (blue + change > 255 || blue + change < 0) {
-          return;
-        }
-        return setBlue(blue + change);
-
-      default:
-        return;
-    }
-  };
+  console.log(state);
 
   return (
     <View>
       <ColorItem
         color="Red"
-        increaseColor={() => setColor('red', CHANGE_INCREMENT)}
-        decreaseColor={() => setColor('red', -1 * CHANGE_INCREMENT)}
+        increaseColor={() =>
+          dispatch({colorToChange: 'red', amount: CHANGE_INCREMENT})
+        }
+        decreaseColor={() =>
+          dispatch({colorToChange: 'red', amount: -1 * CHANGE_INCREMENT})
+        }
       />
       <ColorItem
         color="Green"
-        increaseColor={() => setColor('green', CHANGE_INCREMENT)}
-        decreaseColor={() => setColor('green', -1 * CHANGE_INCREMENT)}
+        increaseColor={() =>
+          dispatch({colorToChange: 'green', amount: CHANGE_INCREMENT})
+        }
+        decreaseColor={() =>
+          dispatch({colorToChange: 'green', amount: -1 * CHANGE_INCREMENT})
+        }
       />
       <ColorItem
         color="Blue"
-        increaseColor={() => setColor('blue', CHANGE_INCREMENT)}
-        decreaseColor={() => setColor('blue', -1 * CHANGE_INCREMENT)}
+        increaseColor={() =>
+          dispatch({colorToChange: 'blue', amount: CHANGE_INCREMENT})
+        }
+        decreaseColor={() =>
+          dispatch({colorToChange: 'blue', amount: -1 * CHANGE_INCREMENT})
+        }
       />
 
       <View
@@ -59,7 +61,7 @@ const ColorCounter = () => {
           marginTop: 50,
           marginLeft: 'auto',
           marginRight: 'auto',
-          backgroundColor: `rgb(${red}, ${green}, ${blue})`,
+          backgroundColor: `rgb(${state.red}, ${state.green}, ${state.blue})`,
         }}
       />
     </View>
