@@ -9,25 +9,27 @@ const ColorCounter = () => {
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0);
 
+  /**
+   * @param {string} color
+   * @param {Number} change
+   */
   const setColor = (color, change) => {
     switch (color) {
       case 'red':
-        if (red + change > 255 || red + change < 0) {
-          return;
-        }
-        return setRed(red + change);
+        red + change > 255 || red + change < 0 ? null : setRed(red + change);
+        return;
 
       case 'green':
-        if (green + change > 255 || green + change < 0) {
-          return;
-        }
-        return setGreen(green + change);
+        green + change > 255 || green + change < 0
+          ? null
+          : setGreen(green + change);
+        return;
 
       case 'blue':
-        if (blue + change > 255 || blue + change < 0) {
-          return;
-        }
-        return setBlue(blue + change);
+        blue + change > 255 || blue + change < 0
+          ? null
+          : setBlue(blue + change);
+        return;
 
       default:
         return;
