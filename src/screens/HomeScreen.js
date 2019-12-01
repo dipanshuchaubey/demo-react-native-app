@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, Button, View} from 'react-native';
+import {Text, StyleSheet, Button} from 'react-native';
 
 const HomeScreen = props => {
   return (
@@ -25,6 +25,14 @@ const HomeScreen = props => {
       <Button
         title="Color Counter"
         onPress={() => props.navigation.navigate('ColorCounter')}
+      />
+      <Button
+        title="Text Screen"
+        onPress={() => props.navigation.navigate('Text')}
+      />
+      <Button
+        title="Box Scree"
+        onPress={() => props.navigation.navigate('Box')}
       />
     </>
   );
